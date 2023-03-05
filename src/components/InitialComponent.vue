@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div>
     <h1>Haz una pregunta</h1>
 
     <div class="mb-3">
@@ -13,7 +13,7 @@
       
       <button 
       v-if="question"
-      class="btn" 
+      class="btn animate__animated animate__fadeIn" 
       @click="handleNext"
       >
           Siguiente
@@ -31,13 +31,13 @@ export default {
   emits:(["goto"]),
 
   setup(props, {emit}) {
-    let question = ref(" ");
-    let error = ref(" ");  
+    const question = ref("");
+    const error = ref(" ");  
 
     let handleNext = () => {
-       console.log("tigger")
-          
+       // console.log("tigger")
           emit("goto", 1) 
+          emit("question", question.value) 
       
     }
 
