@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Tu respuesta es: </h3>
-    <div class="viewer"> {{ result }}</div> <!-- Aquí estamos pasando la pregunta como props del padre al hijo para que se visualice en este componente  -->
+    <div class="viewer"> {{ result }} </div> <!-- Aquí estamos pasando la pregunta como props del padre al hijo para que se visualice en este componente  -->
 
     <div class="animate__animated animate__bounceIn animate__delay-1s">
       <hr>
@@ -25,7 +25,6 @@
 import {onMounted} from 'vue';
 
 export default {
-  
   props: {
     result: String,
   },
@@ -33,20 +32,21 @@ export default {
   setup(props, {emit}){
 
     onMounted(() => {
-      getResult
+      getResult()
      })
 
     const starOver= () => {
-
+      emit("goto", 0)
+      emit("startOver")
     }
+    
     const getResult= () => {
       emit("showResult");
     }
 
     return {
       starOver,
-      getResult, 
-      onMounted
+      getResult
     }
   }
 

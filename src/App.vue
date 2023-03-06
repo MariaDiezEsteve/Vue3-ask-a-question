@@ -17,6 +17,7 @@
         @goto="handleGoTo"
         @question="handleQuestion"
         @showResult ="showResult"
+        @startOVer="startOver"
         /> <!--  Dependiendo del index = posición de la pantalla nos situaremos en una o en otra. -->
         <!-- @goto viene definido por el boton del children de InitialComponent -->
         <!-- question viene derterminado por el hijo InitialComponent.vue =>  emit("question", question.value)  -->
@@ -41,13 +42,12 @@ components: {
   ResultsComponent
 },
 setup(){
-  const screens = ["InitialComponent", "ConfirmComponent", " ResultsComponent"] /* Array con los diferentes componentes*/ 
+  const screens = ["InitialComponent", "ConfirmComponent", "ResultsComponent"] /* Array con los diferentes componentes*/ 
   const position = ref(0)
   const question = ref("")
   const result = ref("")
   const list = [ "Si", "No", "Quizás", "No estoy segura, .. inténtalo de nuevo", "Pregunta a una amiga", "Tu madre que respondería", "Llama a la policía"]
-  let rand = ref("")
-  
+
 
   let handleGoTo = (positions) => { /* Cogerá la posicion del array por eso se pasa como argumento */
     position.value = positions;
@@ -56,20 +56,14 @@ setup(){
   let handleQuestion = (questions) => {
     question.value = questions
   }
-
-  let getRandomValue = () => {
-    return list[Math.floor(Math.random()* list.length)]
-    
-  }
-
-  let generateResult = () =>{
-     rand.value = getRandomValue
-
-     result.value = rand.value
-  }
-
   let showResult = () => {
-    generateResult
+    result.value = list[Math.floor(Math.random() * (list.length))];
+  }
+
+  let startOver = () => {
+    position.value = 0;
+    question.value = "";
+    result.value = "";
   }
 
   return {
@@ -78,15 +72,14 @@ setup(){
     question,
     result, 
     list,
-    rand,
     handleQuestion,
     handleGoTo,
-    getRandomValue,
-    generateResult,
-    showResult
+    showResult,
+    startOver
   }
 }
 }
+
 
 </script>
 
